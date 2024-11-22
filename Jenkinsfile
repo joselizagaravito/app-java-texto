@@ -28,9 +28,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'github-credentials-id', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASSWORD')]) {
-                    git branch: 'master', url: "https://${GIT_USER}:${GIT_PASSWORD}@github.com/joselizagaravito/app-java-texto.git"
-                }
+                    git branch: 'master', url: "https://github.com/joselizagaravito/app-java-texto.git
             }
         }
 
