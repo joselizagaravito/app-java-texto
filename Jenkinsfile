@@ -21,14 +21,14 @@ pipeline {
         DOCKER_REGISTRY_URL = 'selacrjenkins.azurecr.io'
         RESOURCE_GROUP = 'GrupoDevOps'
         AKS_CLUSTER_NAME = 'ClusterDevOps'
-        IMAGE_NAME = "${DOCKER_REGISTRY_URL}/app-java-basico:${env.BUILD_NUMBER}"
+        IMAGE_NAME = "${DOCKER_REGISTRY_URL}/app-java-texto:${env.BUILD_NUMBER}"
     }
 
     stages {
         stage('Checkout Code') {
             steps {
                 // Clonamos el repositorio usando las credenciales almacenadas en Jenkins
-                git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/joselizagaravito/app-java-basico.git'
+                git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/joselizagaravito/app-java-texto.git'
             }
         }
 

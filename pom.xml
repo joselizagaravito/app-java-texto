@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bootcamp.devops.archivos</groupId>
-	<artifactId>Registrar-Archivos</artifactId>
+	<artifactId>app-java-texto</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Registrar-Archivos</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Guardar mensajes en un archivo de texto</description>
 	<url/>
 	<licenses>
 		<license/>
