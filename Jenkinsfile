@@ -48,12 +48,11 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                // Limpieza del workspace y clonación del repositorio
                 cleanWs()
-                withCredentials([usernamePassword(credentialsId: 'github-credentials-id', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASSWORD')]) {
-                    git branch: 'master', url: "https://${GIT_USER}:${GIT_PASSWORD}@github.com/joselizagaravito/app-java-texto.git"
-                }
+                git branch: 'master', url: 'https://github.com/joselizagaravito/app-java-texto.git'
             }
+        }
+
         }
 
         stage('Build') {
