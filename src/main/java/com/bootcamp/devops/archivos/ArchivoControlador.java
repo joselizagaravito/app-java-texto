@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 @RestController
 @RequestMapping("/mensaje")
 public class ArchivoControlador {
-
     private String rutaArchivo = "data/archivo.txt"; // Ruta por defecto
 
     public void setRutaArchivo(String rutaArchivo) {
