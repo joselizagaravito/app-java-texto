@@ -19,5 +19,12 @@ pipeline {
                 sh '${MAVEN_HOME}/bin/mvn test'
             }
         }
+        stage('Build Docker Image'){
+            steps {
+                script{
+					docker.build("joselizagaravito/app-java-texto:{env.BUILD_NUMBER}")
+				}
+            }
+        }
     }
 }
