@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     stages {
         stage('Build') {
             steps {
@@ -8,6 +9,7 @@ pipeline {
             }
         }
     }
+
     post {
         failure {
             emailext subject: "Pipeline Failed: ${env.JOB_NAME}",
@@ -17,4 +19,3 @@ pipeline {
         }
     }
 }
-
