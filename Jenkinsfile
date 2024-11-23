@@ -26,5 +26,14 @@ pipeline {
 				}
             }
         }
+        stage('Push Docker Image'){
+            steps {
+                script{
+					docker.withRegistry('https://index.docker.io/v1/', 'docker-credentials-id'){
+						docker.imagen("joselizagaravito/app-java-texto:{env.BUILD_NUMBER}").push()
+					}
+				}
+            }
+        }
     }
 }
