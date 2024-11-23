@@ -10,16 +10,28 @@ import java.time.format.DateTimeFormatter;
 @RestController
 @RequestMapping("/mensaje")
 public class ArchivoControlador {
-    private static final String RUTA_ARCHIVO = "/data/archivo.txt";
+
+    private String rutaArchivo = "data/archivo.txt"; // Ruta por defecto
+
+    public void setRutaArchivo(String rutaArchivo) {
+        this.rutaArchivo = rutaArchivo;
+    }
+
     private static final DateTimeFormatter FORMATO_FECHA_HORA = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @PostMapping("/write")
     public String escribirArchivo(@RequestBody String mensaje) {
-        String mensajeConFecha = String.format("[%s] %s", LocalDateTime.now().format(FORMATO_FECHA_HORA), mensaje);
+        try {
+            // Crear el directorio si no existe
+            File archivo = new File(rutaArchivo);
+            archivo.getParentFile().mkdirs();
 
-        try (FileWriter writer = new FileWriter(RUTA_ARCHIVO, true)) {
-            writer.write(mensajeConFecha + "\n");
-            return "Mensaje escrito en el archivo: " + mensajeConFecha;
+            // Escribir el mensaje con la fecha
+            String mensajeConFecha = String.format("[%s] %s", LocalDateTime.now().format(FORMATO_FECHA_HORA), mensaje);
+            try (FileWriter writer = new FileWriter(archivo, true)) {
+                writer.write(mensajeConFecha + "\n");
+                return "Mensaje escrito en el archivo: " + mensajeConFecha;
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return "Error al escribir en el archivo.";
@@ -28,9 +40,8 @@ public class ArchivoControlador {
 
     @GetMapping("/read")
     public String leerArchivo() {
-        StringBuilder contenido = new StringBuilder();
         try {
-            return new String(Files.readAllBytes(Paths.get(RUTA_ARCHIVO)));
+            return new String(Files.readAllBytes(Paths.get(rutaArchivo)));
         } catch (IOException e) {
             e.printStackTrace();
             return "Error al leer el archivo o el archivo está vacío.";
