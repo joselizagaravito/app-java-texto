@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script{
 					docker.withRegistry('https://index.docker.io/v1/', 'docker-credentials-id'){
-						def image = docker.imagen("joselizagaravito/app-java-texto:{env.BUILD_NUMBER}")
+						def image = docker.image("joselizagaravito/app-java-texto:{env.BUILD_NUMBER}")
 						image.push()
 					}
 				}
