@@ -1,26 +1,19 @@
 pipeline {
     agent any
+
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/joselizagaravito/app-java-texto.git'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']], // Cambia a '*/master' si la rama principal es master
+                    userRemoteConfigs: [[url: 'https://github.com/joselizagaravito/app-java-texto.git']]
+                ])
             }
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    def image = docker.build("joselizagaravito/app-java-texto:${env.BUILD_NUMBER}")
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-credentials-id') {
-                        def image = docker.image("joselizagaravito/app-java-texto:${env.BUILD_NUMBER}")
-                        image.push()
-                    }
-                }
+                echo "Building Docker Image..."
             }
         }
     }
