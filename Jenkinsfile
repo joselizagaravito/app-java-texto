@@ -14,11 +14,6 @@ pipeline {
                 sh '${MAVEN_HOME}/bin/mvn clean package'
             }
         }
-        stage('Testing'){
-            steps {
-                sh '${MAVEN_HOME}/bin/mvn test'
-            }
-        }
         stage('Build Docker Image'){
             steps {
                 script{
