@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Hello World') {
             steps {
-                // Simula un paso que podría fallar
-                sh 'exit 1' // Provoca un error para pruebas
+                // Saludar
+                echo '¡Hola desde Jenkins!'
             }
         }
     }
