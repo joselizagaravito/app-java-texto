@@ -30,8 +30,13 @@ public class ArchivoControlador {
 
     @GetMapping("/read")
     public String leerArchivo() {
-        try {
-            return new String(Files.readAllBytes(Paths.get(RUTA_ARCHIVO)));
+        StringBuilder contenido = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_ARCHIVO))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                contenido.append(linea).append("\n");
+            }
+            return contenido.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return "Error al leer el archivo o el archivo está vacío.";
