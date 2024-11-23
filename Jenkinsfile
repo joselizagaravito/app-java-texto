@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment{
+        MAVEN_HOME = '/usr/share/maven' //ruta de maven
+    }
     stages {
         stage('Verificar Codigo') {
             steps {
