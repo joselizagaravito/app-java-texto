@@ -15,7 +15,9 @@ pipeline {
             }
         }
         stage('Testing'){
+            steps {
                 sh '${MAVEN_HOME}/bin/mvn test'
+            }
         }
     }
 }
