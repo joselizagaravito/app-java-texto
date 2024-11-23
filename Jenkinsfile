@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image'){
             steps {
                 script{
-					docker.build("joselizagaravito/app-java-texto:{env.BUILD_NUMBER}")
+					def image = docker.build("joselizagaravito/app-java-texto:{env.BUILD_NUMBER}")
 				}
             }
         }
@@ -25,7 +25,8 @@ pipeline {
             steps {
                 script{
 					docker.withRegistry('https://index.docker.io/v1/', 'docker-credentials-id'){
-						docker.imagen("joselizagaravito/app-java-texto:{env.BUILD_NUMBER}").push()
+						def image = docker.imagen("joselizagaravito/app-java-texto:{env.BUILD_NUMBER}")
+						image.push()
 					}
 				}
             }
