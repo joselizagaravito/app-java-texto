@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 @RestController
 @RequestMapping("/mensaje")
 public class ArchivoControlador {
-
     private static final String RUTA_ARCHIVO = "/data/archivo.txt";
     private static final DateTimeFormatter FORMATO_FECHA_HORA = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
