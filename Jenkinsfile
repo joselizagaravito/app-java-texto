@@ -17,6 +17,6 @@ pipeline {
                               <p>Revisa los logs en <a href="${env.BUILD_URL}">Jenkins</a>.</p>""",
                      to: "inbox@your-mailtrap.com"
         }
+    }
 }
-
 
