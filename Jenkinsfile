@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_NAME = "joselizagaravito/app-java-texto" // Nombre de la imagen con tu usuario de Docker Hub
-        DOCKER_TAG = "latest"                                  // Etiqueta de la imagen
-        DOCKER_REGISTRY = "docker.io"                          // Registro para Docker Hub
+        DOCKER_IMAGE_NAME = "joselizagaravito/app-java-texto"
+        DOCKER_TAG = "latest"
+        DOCKER_REGISTRY = "docker.io"
     }
 
     stages {
@@ -12,7 +12,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: '*/master']], // Rama master
+                    branches: [[name: '*/master']], // Cambia 'master' por el nombre de tu rama principal si es diferente
                     userRemoteConfigs: [[
                         url: 'https://github.com/joselizagaravito/app-java-texto.git'
                     ]]
@@ -22,8 +22,7 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                echo "Compilando la aplicación Java..."
-                // Asumiendo que estás usando Maven
+                echo "Compilando la aplicación con Maven..."
                 sh 'mvn clean package'
             }
         }
@@ -47,9 +46,9 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 echo "Subiendo la imagen Docker a Docker Hub..."
-                withCredentials([usernamePassword(credentialsId: 'docker-credentials-id', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker-credentials-id', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh """
-                    echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin ${DOCKER_REGISTRY}
+                    echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
                     docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_TAG} ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_TAG}
                     docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_TAG}
                     """
@@ -60,7 +59,7 @@ pipeline {
 
     post {
         always {
-            echo 'Limpieza de recursos...'
+            echo "Limpieza del workspace y cierre de sesión de Docker..."
             sh 'docker logout'
         }
     }
