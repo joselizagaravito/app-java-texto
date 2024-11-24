@@ -7,6 +7,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/joselizagaravito/app-java-texto.git'
             }
         }
+        
         stage('Build Docker Image') {
             steps {
                 script {
